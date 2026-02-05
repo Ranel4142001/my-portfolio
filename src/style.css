@@ -4,20 +4,15 @@
   --slate: #6b6b6b;
   --sand: #f5f3f0;
   --cream: #fffef9;
-
   --accent: #ff6b35;
   --accent-dark: #d94e1f;
-
-  --radius: 0.75rem;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --success: #2d6a4f;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html {
@@ -25,22 +20,31 @@ html {
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--cream);
   color: var(--ink);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  z-index: 1000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
 
 .container {
   max-width: 1200px;
-  margin-inline: auto;
-  padding-inline: 2rem;
-}
-
-section {
-  padding: 7rem 2rem;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 nav {
@@ -55,49 +59,93 @@ nav {
   transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(255, 254, 249, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  z-index: 100;
+/* Class to hide navbar on scroll down */
+nav.nav-hidden {
+  transform: translateY(-100%);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 nav .container {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding-block: 1.25rem;
+  padding: 1.5rem 2rem;
 }
 
 .logo {
-  font-family: "Playfair Display", serif;
-  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
   font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.btn-cv-nav {
+  background: var(--accent); /* Uses your orange color */
+  color: white;              /* White text for contrast */
+  border: none;
+  padding: 0.7rem 1.5rem;    /* Makes it look like a button */
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* Best Practice: ensure it aligns with other nav items */
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-cv-nav:hover {
+  background: var(--accent-dark); /* Darker orange on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
 }
 
 .nav-links {
   display: flex;
   gap: 2.5rem;
   list-style: none;
-  justify-content: center;
 }
 
-
 .nav-links a {
-  color: var(--stone);
   text-decoration: none;
+  color: var(--stone);
   font-weight: 500;
+  font-size: 0.95rem;
   position: relative;
-  transition: color var(--transition);
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
   color: var(--accent);
 }
 
+.nav-links a:hover::after {
+  width: 100%;
+}
 
 .mobile-toggle {
   display: none;
@@ -677,15 +725,19 @@ section {
 
 /* Footer */
 .footer {
-  background: var(--ink);
-  color: var(--sand);
-  padding: 3rem 2rem;
+  background: var(--cream);
+  color: var(--ink);
+  padding: 4rem 2rem;
   text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .footer p {
-  font-size: 0.95rem;
-  opacity: 0.8;
+  font-size: 0.9rem;
+  opacity: 0.8; /* Lowering opacity slightly makes it look more "elegant" */
+  letter-spacing: 0.05em; /* Improves readability for small text */
+  font-weight: 400;
+  color: var(--ink);
 }
 
 /* Responsive Design */

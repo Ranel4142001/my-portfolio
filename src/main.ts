@@ -229,8 +229,14 @@ document
  * CV DOWNLOAD HANDLER
  * ===============================
  */
-const handleDownload = () => {
-  window.open("/Ranel_Dahil_CV.pdf", "_blank");
+const handleDownload = (): void => {
+  // Best Practice: Creating a link element to force download across browsers
+  const cvLink = document.createElement("a");
+  cvLink.href = "/Ranel_Dahil_CV.pdf"; // Path relative to public folder
+  cvLink.download = "Ranel_Dahil_CV.pdf"; // The name user sees on download
+  document.body.appendChild(cvLink);
+  cvLink.click();
+  document.body.removeChild(cvLink);
 };
 
 document

@@ -1,181 +1,73 @@
-# Ranel Dahil - Portfolio
+# Welcome to your Lovable project
 
-Modern, professional portfolio with editorial aesthetic design.
+## Project info
 
-## 🚀 Setup Options
+**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
-You have **two options** for using this portfolio:
+## How can I edit this code?
 
----
+There are several ways of editing your application.
 
-### Option 1: TypeScript with Build Tool (Recommended for Development)
+**Use Lovable**
 
-**Best for:** Projects using Vite, Webpack, or other build tools
+Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
 
-**Folder Structure:**
-```
-portfolio/
-├── index.html
-├── style.css
-├── src/
-│   └── main.ts
-├── package.json
-└── tsconfig.json
-```
+Changes made via Lovable will be committed automatically to this repo.
 
-**Setup Steps:**
+**Use your preferred IDE**
 
-1. **Initialize your project:**
-```bash
-npm init -y
-npm install -D vite typescript
-```
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-2. **Create `tsconfig.json`:**
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM"],
-    "moduleResolution": "node",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src"]
-}
-```
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-3. **Update `package.json` scripts:**
-```json
-{
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  }
-}
-```
+Follow these steps:
 
-4. **Run development server:**
-```bash
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-5. **Build for production:**
-```bash
-npm run build
-```
+**Edit a file directly in GitHub**
 
----
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-### Option 2: Plain JavaScript (No Build Tool)
+**Use GitHub Codespaces**
 
-**Best for:** Quick deployment, simple hosting, or learning
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-**Folder Structure:**
-```
-portfolio/
-├── index.html
-├── style.css
-└── script.js
-```
+## What technologies are used for this project?
 
-**Setup Steps:**
+This project is built with:
 
-1. **Update `index.html`** - Change the script line from:
-```html
-<script type="module" src="/src/main.ts"></script>
-```
-to:
-```html
-<script src="script.js"></script>
-```
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-2. **Use `script.js` instead of `main.ts`**
-   - The `script.js` file is already provided (vanilla JavaScript version)
-   - No TypeScript compilation needed
-   - Just open `index.html` directly in your browser!
+## How can I deploy this project?
 
----
+Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
-## 📁 Files Included
+## Can I connect a custom domain to my Lovable project?
 
-- **index.html** - Main HTML structure
-- **style.css** - Complete styling with animations
-- **main.ts** - TypeScript version (for Option 1)
-- **script.js** - JavaScript version (for Option 2)
+Yes, you can!
 
----
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-## 🎨 Features
-
-✨ Smooth scroll animations
-📱 Fully responsive design
-🎯 Section navigation
-🌟 Hover effects
-📧 Contact form
-🔗 Social media links
-🎭 Grain texture overlay
-🚀 Parallax effects
-
----
-
-## 🛠️ Customization
-
-### Update Your Information
-
-1. **Personal Info** - Edit text in `index.html`
-2. **Projects** - Replace project cards with your actual projects
-3. **Skills** - Update skill categories to match your expertise
-4. **Contact** - Change email, phone, and social links
-5. **Colors** - Modify CSS variables in `style.css`:
-
-```css
-:root {
-  --ink: #0a0a0a;          /* Main text color */
-  --accent: #ff6b35;        /* Accent color (orange) */
-  --cream: #fffef9;         /* Background */
-  /* ... more variables */
-}
-```
-
----
-
-## 🌐 Deployment
-
-### Deploy to:
-- **Netlify**: Drag and drop your folder
-- **Vercel**: Connect your GitHub repo
-- **GitHub Pages**: Push to GitHub and enable Pages
-- **Any static host**: Upload files via FTP
-
----
-
-## 💡 Which Option Should You Choose?
-
-| Feature | TypeScript (Option 1) | JavaScript (Option 2) |
-|---------|----------------------|----------------------|
-| Type safety | ✅ Yes | ❌ No |
-| Build step required | ✅ Yes | ❌ No |
-| Hot reload | ✅ Yes (with Vite) | ⚠️ Manual refresh |
-| Production optimized | ✅ Yes (minified) | ⚠️ Manual optimization |
-| Best for | Development projects | Quick deployment |
-| Complexity | Medium | Low |
-
-**Recommendation:** 
-- Use **Option 1 (TypeScript)** if you're building a professional portfolio and want modern development experience
-- Use **Option 2 (JavaScript)** if you want to get started quickly without setup
-
----
-
-## 📞 Need Help?
-
-If you encounter any issues, check:
-1. All files are in the correct folders
-2. File paths in HTML match your folder structure
-3. Your browser console for any errors
-
-Good luck with your portfolio! 🚀
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)

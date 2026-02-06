@@ -1,10 +1,20 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
 
-// Best Practice: Explicitly define the config object
-export default defineConfig({
-  base: './', // Ensures assets work on GitHub Pages
+// https://vitejs.dev/config/
+export default defineConfig(() => ({
   server: {
-    port: 3000,
-    open: true
-  }
-});
+    host: "::",
+    port: 8080,
+    hmr: {
+      overlay: false,
+    },
+  },
+  plugins: [react()], // only keep React plugin
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+}));

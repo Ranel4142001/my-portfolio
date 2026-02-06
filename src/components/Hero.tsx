@@ -88,7 +88,7 @@ const Hero = () => {
           {/* Social Links */}
           <div className="flex items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
             <a 
-              href="https://github.com" 
+              href="https://github.com/Ranel4142001" 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-3 rounded-lg bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-secondary transition-all"
@@ -97,7 +97,7 @@ const Hero = () => {
               <Github className="w-5 h-5" />
             </a>
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/in/ranel-dahil-594b44293/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-3 rounded-lg bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-secondary transition-all"
@@ -116,7 +116,7 @@ const Hero = () => {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <div className="absolute bottom-10 left-[47%] -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
           <ArrowDown className="w-4 h-4 animate-bounce" />
         </div>

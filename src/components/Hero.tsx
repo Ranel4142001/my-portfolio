@@ -1,9 +1,9 @@
+import { motion } from 'framer-motion'; // Import motion
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   const handleDownload = () => {
-    // Create a placeholder for CV download
     const link = document.createElement('a');
     link.href = '/Ranel_Dahil_CV.pdf';
     link.download = 'Ranel_Dahil_CV.pdf';
@@ -26,6 +26,14 @@ const Hero = () => {
     }
   };
 
+  // Reusable animation settings for "always animate on scroll"
+  const scrollFadeProps = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: false, amount: 0.2 }, // amount: 0.2 means trigger when 20% visible
+    transition: { duration: 0.6 }
+  };
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Effects */}
@@ -44,32 +52,52 @@ const Hero = () => {
 
       <div className="container-custom relative z-10 pt-20">
         <div className="max-w-4xl mx-auto text-center">
+          
           {/* Tag */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
+          <motion.div 
+            {...scrollFadeProps}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+          >
             <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
             <span className="text-primary text-sm font-mono">Backend Developer</span>
-          </div>
+          </motion.div>
 
           {/* Name */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <motion.h1 
+            {...scrollFadeProps}
+            transition={{ ...scrollFadeProps.transition, delay: 0.1 }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
+          >
             Hi, I'm{' '}
-            <span className="text-gradient">Ranel Dahil</span>
-          </h1>
+            <span className="text-gradient">Ranel Laurente Dahil</span>
+          </motion.h1>
 
           {/* Terminal-style subtitle */}
-          <div className="font-mono text-muted-foreground mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <motion.div 
+            {...scrollFadeProps}
+            transition={{ ...scrollFadeProps.transition, delay: 0.2 }}
+            className="font-mono text-muted-foreground mb-8"
+          >
             <span className="text-primary">$</span> Building robust, scalable backend systems
             <span className="cursor-blink" />
-          </div>
+          </motion.div>
 
           {/* Description */}
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <motion.p 
+            {...scrollFadeProps}
+            transition={{ ...scrollFadeProps.transition, delay: 0.3 }}
+            className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10"
+          >
             I architect and develop efficient server-side solutions, APIs, and database systems 
             that power modern applications. Passionate about clean code and system design.
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <motion.div 
+            {...scrollFadeProps}
+            transition={{ ...scrollFadeProps.transition, delay: 0.4 }}
+            className="flex flex-wrap items-center justify-center gap-4 mb-12"
+          >
             <Button 
               onClick={scrollToProjects}
               className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-base font-semibold"
@@ -83,10 +111,14 @@ const Hero = () => {
             >
               Download CV
             </Button>
-          </div>
+          </motion.div>
 
           {/* Social Links */}
-          <div className="flex items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <motion.div 
+            {...scrollFadeProps}
+            transition={{ ...scrollFadeProps.transition, delay: 0.5 }}
+            className="flex items-center justify-center gap-4"
+          >
             <a 
               href="https://github.com/Ranel4142001" 
               target="_blank" 
@@ -112,14 +144,20 @@ const Hero = () => {
             >
               <Mail className="w-5 h-5" />
             </button>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-2 text-muted-foreground animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        {/* Scroll indicator - Removed inset-x-0 and used left-1/2 for perfect centering */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false }}
+          transition={{ delay: 0.6 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground"
+        >
           <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
           <ArrowDown className="w-4 h-4 animate-bounce" />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

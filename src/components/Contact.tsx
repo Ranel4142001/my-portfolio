@@ -1,4 +1,5 @@
-import { useRef, useEffect, useState } from 'react';
+import { useState } from 'react';
+import { motion } from 'framer-motion'; 
 import { Mail, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,34 +7,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     toast({
@@ -45,11 +25,21 @@ const Contact = () => {
     (e.target as HTMLFormElement).reset();
   };
 
+  const scrollFadeProps = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: false, amount: 0.2 },
+    transition: { duration: 0.7 }
+  };
+
   return (
-    <section id="contact" ref={sectionRef} className="section-padding relative bg-secondary/30">
+    <section id="contact" className="section-padding relative bg-secondary/30">
       <div className="container-custom">
         {/* Section Header */}
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <motion.div 
+          {...scrollFadeProps}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <span className="text-primary text-sm font-medium">Contact</span>
           </div>
@@ -59,11 +49,15 @@ const Contact = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Have a project in mind or want to discuss opportunities? I'd love to hear from you.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
-          <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '100ms' }}>
+          <motion.div 
+            {...scrollFadeProps}
+            transition={{ ...scrollFadeProps.transition, delay: 0.1 }}
+            className="flex flex-col"
+          >
             <h3 className="text-2xl font-bold mb-6 text-foreground">Get in Touch</h3>
             <p className="text-muted-foreground mb-8">
               I'm currently open to freelance projects and full-time opportunities. 
@@ -130,10 +124,13 @@ const Contact = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Form */}
-          <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
+          <motion.div 
+            {...scrollFadeProps}
+            transition={{ ...scrollFadeProps.transition, delay: 0.2 }}
+          >
             <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-card border border-border">
               <div className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -210,7 +207,7 @@ const Contact = () => {
                 </Button>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

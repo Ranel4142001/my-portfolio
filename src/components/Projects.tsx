@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { motion, Variants } from 'framer-motion';
 import { Github, ExternalLink, Folder } from 'lucide-react';
 
 interface Project {
@@ -57,35 +57,34 @@ const projects: Project[] = [
 ];
 
 const Projects = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const featuredProjects = projects.filter(p => p.featured);
   const otherProjects = projects.filter(p => !p.featured);
 
+  const cardVariants: Variants= {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1, 
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  };
+
   return (
-    <section id="projects" ref={sectionRef} className="section-padding relative">
+    <section id="projects" className="section-padding relative">
       <div className="container-custom">
         {/* Section Header */}
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <span className="text-primary text-sm font-medium">Projects</span>
           </div>
@@ -95,17 +94,19 @@ const Projects = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             A selection of backend projects I've built, showcasing my expertise in system design and development
           </p>
-        </div>
+        </motion.div>
 
         {/* Featured Projects */}
         <div className="space-y-8 mb-16">
           {featuredProjects.map((project, index) => (
-            <div
+            <motion.div
               key={project.title}
-              className={`group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 card-glow ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.1 }}
+              variants={cardVariants}
+              className="group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 card-glow"
             >
               <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                 {/* Project Icon */}
@@ -157,17 +158,27 @@ const Projects = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Other Projects Grid */}
-        <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '600ms' }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ duration: 0.7 }}
+        >
           <h3 className="text-xl font-semibold mb-8 text-center text-foreground">Other Notable Projects</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {otherProjects.map((project, index) => (
-              <div
+              <motion.div
                 key={project.title}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.1 }}
+                variants={cardVariants}
                 className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
@@ -197,10 +208,10 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

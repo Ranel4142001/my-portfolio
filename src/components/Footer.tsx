@@ -1,4 +1,5 @@
-import { Terminal, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Terminal } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -6,7 +7,14 @@ const Footer = () => {
   return (
     <footer className="py-8 border-t border-border">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Changed once: false so it replays every time it enters the viewport */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.1 }} 
+          transition={{ duration: 0.5 }}
+          className="flex flex-col md:flex-row items-center justify-between gap-4"
+        >
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -31,7 +39,7 @@ const Footer = () => {
           >
             Back to top ↑
           </button>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

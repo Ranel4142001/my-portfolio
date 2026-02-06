@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { motion } from 'framer-motion'; // Added Framer Motion
 import { Server, Database, Shield, Zap } from 'lucide-react';
 
 const highlights = [
@@ -25,35 +25,22 @@ const highlights = [
 ];
 
 const About = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding relative">
+    <section id="about" className="section-padding relative">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          
           {/* Left Column - Text Content */}
-          <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+            className="flex flex-col"
+          >
             {/* Section Label */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6 w-fit">
               <span className="text-primary text-sm font-medium">About Me</span>
             </div>
 
@@ -93,7 +80,7 @@ const About = () => {
                 <span className="text-foreground">developer</span> = {'{'}
                 <br />
                 <span className="ml-4 text-muted-foreground">name:</span>{' '}
-                <span className="text-emerald-400">'Ranel Dahil'</span>,
+                <span className="text-emerald-400">'Ranel Laurente Dahil'</span>,
                 <br />
                 <span className="ml-4 text-muted-foreground">role:</span>{' '}
                 <span className="text-emerald-400">'Backend Developer'</span>,
@@ -104,24 +91,28 @@ const About = () => {
                 {'}'};
               </code>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column - Highlight Cards */}
           <div className="grid sm:grid-cols-2 gap-4">
             {highlights.map((item, index) => (
-              <div
+              <motion.div
                 key={item.title}
-                className={`group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-500 card-glow ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.1 
+                }}
+                className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-500 card-glow"
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <item.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

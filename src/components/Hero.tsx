@@ -116,7 +116,7 @@ const Hero = () => {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-[47%] -translate-x-1/2 flex flex-col items-center gap-2 mt-12 text-muted-foreground animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <div className="absolute bottom-10 inset-x-0 flex flex-col items-center gap-2 text-muted-foreground animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
           <ArrowDown className="w-4 h-4 animate-bounce" />
         </div>

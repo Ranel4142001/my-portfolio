@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion'; 
-import { Mail, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, Twitter, Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [date, setDate] = useState<Date>(); // State for the calendar date
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     toast({
@@ -22,6 +28,7 @@ const Contact = () => {
     });
 
     setIsSubmitting(false);
+    setDate(undefined); // Reset date after submission
     (e.target as HTMLFormElement).reset();
   };
 
@@ -173,6 +180,37 @@ const Contact = () => {
                     className="bg-secondary/50 border-border focus:border-primary"
                   />
                 </div>
+
+                {/* --- Calendar Implementation Start --- */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Preferred Meeting Date (Optional)
+                  </label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal bg-secondary/50 border-border hover:bg-secondary/80",
+                          !date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        initialFocus
+                        disabled={(date) => date < new Date()} // Prevent picking past dates
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                {/* --- Calendar Implementation End --- */}
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">

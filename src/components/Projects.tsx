@@ -42,7 +42,7 @@ const Projects = () => {
               whileInView="visible"
               viewport={viewportSettings}
               variants={cardVariants}
-              className="group relative p-8 rounded-2xl bg-card border border-bordertransform-gpu will-change-transform card-glow"
+              className="group relative p-8 rounded-2xl bg-card border border-border transform-gpu will-change-transform card-glow"
             >
               <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                 {/* Project Icon */}

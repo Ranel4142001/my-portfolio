@@ -62,13 +62,13 @@ const Projects = () => {
   const otherProjects = projects.filter(p => !p.featured);
 
   const cardVariants: Variants= {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 15 },
     visible: (i: number) => ({
       opacity: 1, 
       y: 0,
       transition: {
-        delay: i * 0.1,
-        duration: 0.5,
+        delay: window.innerWidth < 768 ? 0 : i * 0.1,
+        duration: 0.4,
         ease: "easeOut"
       }
     })
@@ -106,7 +106,7 @@ const Projects = () => {
               whileInView="visible"
               viewport={{ once: false, amount: 0.1 }}
               variants={cardVariants}
-              className="group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 card-glow"
+              className="group relative p-8 rounded-2xl bg-card border border-bordertransform-gpu will-change-transform card-glow"
             >
               <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                 {/* Project Icon */}
@@ -179,7 +179,7 @@ const Projects = () => {
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.1 }}
                 variants={cardVariants}
-                className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300"
+                className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 card-glow"
               >
                 <div className="flex items-center justify-between mb-4">
                   <Folder className="w-10 h-10 text-primary" />

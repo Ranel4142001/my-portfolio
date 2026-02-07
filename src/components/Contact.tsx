@@ -138,7 +138,7 @@ const Contact = () => {
             {...scrollFadeProps}
             transition={{ ...scrollFadeProps.transition, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-card border border-border">
+            <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-card border border-border card-glow">
               <div className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>

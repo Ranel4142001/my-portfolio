@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'; // Added Framer Motion
 import { aboutHighlights } from '@/data/aboutData';
+import { cardVariants, viewportSettings } from '@/lib/animations';
 
 
 const About = () => {
@@ -13,7 +14,7 @@ const About = () => {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={viewportSettings}
             transition={{ duration: 0.7 }}
             className="flex flex-col"
           >
@@ -76,14 +77,16 @@ const About = () => {
             {aboutHighlights.map((item, index) => (
               <motion.div
                 key={item.title}
+                custom={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={viewportSettings}
+                variants={cardVariants}
                 transition={{ 
                   duration: 0.5, 
                   delay: index * 0.1 
                 }}
-                className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-500 card-glow"
+                className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-500 transform-gpu will-change-transform card-glow"
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <item.icon className="w-6 h-6 text-primary" />

@@ -1,28 +1,6 @@
 import { motion } from 'framer-motion'; // Added Framer Motion
-import { Server, Database, Shield, Zap } from 'lucide-react';
+import { aboutHighlights } from '@/data/aboutData';
 
-const highlights = [
-  {
-    icon: Server,
-    title: 'API Development',
-    description: 'RESTful & GraphQL APIs built for performance and scalability',
-  },
-  {
-    icon: Database,
-    title: 'Database Design',
-    description: 'Efficient schema design and query optimization',
-  },
-  {
-    icon: Shield,
-    title: 'Security First',
-    description: 'Implementing best practices for authentication & authorization',
-  },
-  {
-    icon: Zap,
-    title: 'Performance',
-    description: 'Optimizing systems for speed and reliability',
-  },
-];
 
 const About = () => {
 
@@ -95,7 +73,7 @@ const About = () => {
 
           {/* Right Column - Highlight Cards */}
           <div className="grid sm:grid-cols-2 gap-4">
-            {highlights.map((item, index) => (
+            {aboutHighlights.map((item, index) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 30 }}

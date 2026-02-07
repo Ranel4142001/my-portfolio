@@ -1,78 +1,14 @@
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Github, ExternalLink, Folder } from 'lucide-react';
+import { cardVariants, viewportSettings } from '@/lib/animations'
+import { projectsData } from '@/data/projectsData';
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  github?: string;
-  live?: string;
-  featured: boolean;
-}
-
-const projects: Project[] = [
-  {
-    title: 'E-Commerce API Platform',
-    description: 'A scalable RESTful API powering an e-commerce platform with user authentication, product management, order processing, and payment integration. Built with microservices architecture for high availability.',
-    technologies: ['Node.js', 'Express', 'PostgreSQL', 'Redis', 'Docker'],
-    github: 'https://github.com',
-    live: 'https://example.com',
-    featured: true,
-  },
-  {
-    title: 'Real-time Chat System',
-    description: 'WebSocket-based chat application supporting private messaging, group chats, and file sharing. Features include message encryption, read receipts, and offline message queuing.',
-    technologies: ['Python', 'FastAPI', 'WebSocket', 'MongoDB', 'RabbitMQ'],
-    github: 'https://github.com',
-    featured: true,
-  },
-  {
-    title: 'Authentication Service',
-    description: 'Centralized authentication microservice implementing OAuth 2.0, JWT tokens, and multi-factor authentication. Supports social login and role-based access control.',
-    technologies: ['Java', 'Spring Boot', 'MySQL', 'JWT', 'OAuth2'],
-    github: 'https://github.com',
-    featured: true,
-  },
-  {
-    title: 'Task Queue Manager',
-    description: 'Distributed task queue system for handling background jobs with priority scheduling, retry mechanisms, and monitoring dashboard.',
-    technologies: ['Python', 'Celery', 'Redis', 'Docker'],
-    github: 'https://github.com',
-    featured: false,
-  },
-  {
-    title: 'Log Analytics Pipeline',
-    description: 'Real-time log aggregation and analysis system processing millions of events per day with anomaly detection and alerting.',
-    technologies: ['Node.js', 'Elasticsearch', 'Kafka', 'Kibana'],
-    github: 'https://github.com',
-    featured: false,
-  },
-  {
-    title: 'API Gateway',
-    description: 'Custom API gateway handling rate limiting, request validation, load balancing, and API versioning for microservices.',
-    technologies: ['Go', 'Redis', 'Nginx', 'Docker'],
-    github: 'https://github.com',
-    featured: false,
-  },
-];
 
 const Projects = () => {
 
-  const featuredProjects = projects.filter(p => p.featured);
-  const otherProjects = projects.filter(p => !p.featured);
+  const featuredProjects = projectsData.filter(p => p.featured);
+  const otherProjects = projectsData.filter(p => !p.featured);
 
-  const cardVariants: Variants= {
-    hidden: { opacity: 0, y: 15 },
-    visible: (i: number) => ({
-      opacity: 1, 
-      y: 0,
-      transition: {
-        delay: window.innerWidth < 768 ? 0 : i * 0.1,
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    })
-  };
 
   return (
     <section id="projects" className="section-padding relative">
@@ -81,7 +17,7 @@ const Projects = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={viewportSettings}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
@@ -104,7 +40,7 @@ const Projects = () => {
               custom={index}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.1 }}
+              viewport={viewportSettings}
               variants={cardVariants}
               className="group relative p-8 rounded-2xl bg-card border border-bordertransform-gpu will-change-transform card-glow"
             >
@@ -177,7 +113,7 @@ const Projects = () => {
                 custom={index}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.1 }}
+               viewport={viewportSettings}
                 variants={cardVariants}
                 className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 card-glow"
               >

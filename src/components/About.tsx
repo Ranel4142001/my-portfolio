@@ -78,14 +78,10 @@ const About = () => {
               <motion.div
                 key={item.title}
                 custom={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportSettings}
                 variants={cardVariants}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: index * 0.1 
-                }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportSettings}
                 className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-500 transform-gpu will-change-transform card-glow"
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">

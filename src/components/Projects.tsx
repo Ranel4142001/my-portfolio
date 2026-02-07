@@ -115,7 +115,7 @@ const Projects = () => {
                 whileInView="visible"
                viewport={viewportSettings}
                 variants={cardVariants}
-                className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 card-glow"
+                className="group p-6 rounded-xl bg-card border border-border transform-gpu will-change-transform card-glow"
               >
                 <div className="flex items-center justify-between mb-4">
                   <Folder className="w-10 h-10 text-primary" />

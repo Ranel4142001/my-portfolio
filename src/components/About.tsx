@@ -82,7 +82,7 @@ const About = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportSettings}
-                className="group p-6 rounded-xl bg-card border border-border card-glow"
+                className="group p-6 rounded-xl bg-card border border-border transform-gpu will-change-transform card-glow"
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <item.icon className="w-6 h-6 text-primary" />

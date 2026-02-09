@@ -7,20 +7,26 @@ import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
     const dbUrl = process.env.DATABASE_URL;
+
+    if (!dbUrl) {
+      throw new Error('DATABASE_URL is not defined in environment variables');
+    }
+
     const url = new URL(dbUrl);
 
-   // 3. Pass the Config Object directly to the Adapter
-    // This solves the 'Argument of type Pool is not assignable' error
-    const adapter = new PrismaMariaDb({
+   const adapter = new PrismaMariaDb({
       host: url.hostname,
       user: url.username,
-      password: url.password,
-      database: url.pathname.slice(1), // Removes the "/" from "/defaultdb"
-      port: parseInt(url.port),
-      connectionLimit: 2, // Best practice for Aiven Free Tier
+      password: decodeURIComponent(url.password), // Handles special characters in password
+      database: url.pathname.slice(1),
+      port: parseInt(url.port) || 3306,
+      connectionLimit: 2,
+      // Aiven FREE tier requires these specific SSL settings to connect from Render
       ssl: {
-        rejectUnauthorized: false // Required for Aiven
-      }
+        rejectUnauthorized: false,
+      },
+      // Increase connectTimeout to prevent the 'failed to create socket' error
+      connectTimeout: 10000, 
     });
 
     super({

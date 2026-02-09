@@ -16,7 +16,8 @@ async function bootstrap() {
   }));
   app.setGlobalPrefix('api');
   app.enableCors({
-    origin: 'http://localhost:3005', 
+    origin: ['http://localhost:3005', 
+    'https://rld-portfolio.vercel.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

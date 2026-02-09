@@ -7,14 +7,19 @@ export class PageViewService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreatePageViewDto) {
+
     return await this.prisma.pageView.create({
-      data: dto, // Because the DTO names match the Schema names!
+      data: {
+       page_path: dto.page_path, 
+      user_agent: dto.user_agent,
+      referrer: dto.referrer,
+      },
     });
   }
 
   async findAll() {
     return await this.prisma.pageView.findMany({
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: 'desc' }, 
     });
   }
 }

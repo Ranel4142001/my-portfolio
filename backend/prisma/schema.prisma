@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+
+model ContactSubmission {
+  id        Int         @id @default(autoincrement())
+  name      String
+  email     String
+  message   String      @db.Text
+  created_at DateTime   @default(now())
+  read      Boolean     @default(false)
+
+  @@map("contact_submissions")
+}
+
+model PageView {
+  id             Int     @id @default(autoincrement())
+  page_path      String
+  user_agent     String?
+  referrer       String?
+  ip_hash        String?
+  session_id     String?
+  created_at     DateTime @default(now())
+
+  @@index([created_at])
+  @@index([page_path])
+  @@map("page_views")
+}

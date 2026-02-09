@@ -7,7 +7,7 @@ export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
-  //constructor() {
+  constructor() {
   //  const adapter = new PrismaMariaDb({
   //    host: process.env.DB_HOST || 'localhost',
   //    user: process.env.DB_USER || 'root',
@@ -17,11 +17,16 @@ export class PrismaService
   //    connectionLimit: 5,
   //  });
 
-   // super({
+    super({
     // adapter,
-   //   log: ['query', 'error', 'warn'],
-   // });
-  //}
+    datasources: {
+        db: {
+          url: process.env.DATABASE_URL,
+        },
+      },
+      log: ['error', 'warn'],
+    } as any);
+  }
 
   async onModuleInit() {
     await this.$connect();

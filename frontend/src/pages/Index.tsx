@@ -1,10 +1,10 @@
-import Navigation from '@/components/Navigation';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Skills from '@/components/Skills';
-import Projects from '@/components/Projects';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+import Navigation from '@/shared/components/layout/Navigation';
+import Hero from '@/features/hero/Hero';
+import About from '@/features/about/About';
+import Skills from '@/features/skills/Skills';
+import Projects from '@/features/projects/Projects';
+import Contact from '@/features/contact/Contact';
+import Footer from '@/shared/components/layout/Footer';
 
 const Index = () => {
   return (

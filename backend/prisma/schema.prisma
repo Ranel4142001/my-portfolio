@@ -14,12 +14,13 @@ datasource db {
 
 
 model ContactSubmission {
-  id        Int         @id @default(autoincrement())
-  name      String
-  email     String
-  message   String      @db.Text
-  created_at DateTime   @default(now())
-  read      Boolean     @default(false)
+  id             Int         @id @default(autoincrement())
+  name           String
+  email          String
+  preferredDate  String?
+  message        String      @db.Text
+  created_at     DateTime   @default(now())
+  read           Boolean     @default(false)
 
   @@map("contact_submissions")
 }

@@ -15,7 +15,11 @@ async function bootstrap() {
     transform: true, 
   }));
   app.setGlobalPrefix('api');
-  app.enableCors();
+  app.enableCors({
+    origin: 'http://localhost:3005', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
 
   const port = process.env.PORT || 3000;
   await app.listen(port);

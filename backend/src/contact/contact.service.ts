@@ -5,46 +5,47 @@ import { MailerService } from 'src/common/mailer/mailer.service';
 
 @Injectable()
 export class ContactService {
-  constructor (
+  constructor(
     private readonly prisma: PrismaService,
     private readonly mailerService: MailerService,
   ) {}
 
- async create(dto: CreateContactDto) {
-
-  try {
-      // 1. Save to database first and STORE it in 'submission'
+  async create(dto: CreateContactDto) {
+    try {
+      // 1️⃣ Save to database
       const submission = await this.prisma.contactSubmission.create({
         data: dto,
       });
-  
 
-    this.mailerService.sendContactNotification(
-      dto.name,
-      dto.email,
-      dto.message,
-    ).catch(err => console.error('Background Email Error:', err));
+      // 2️⃣ Send email — properly awaited
+      try {
+        const info = await this.mailerService.sendContactNotification(
+          dto.name,
+          dto.email,
+          dto.message,
+        );
+        console.log('✅ Email successfully sent to admin');
+      } catch (emailError) {
+        console.error('❌ Failed to send contact email:', emailError);
+      }
 
-    // 3. Return the result immediately so the user sees "Success" right away
-    return submission;
-
-  } catch (error) {
-    console.error('Error creating contact:', error);
-    throw error;
+      // 3️⃣ Return database result immediately
+      return submission;
+    } catch (error) {
+      console.error('❌ Error creating contact submission:', error);
+      throw error;
+    }
   }
-}
 
-async findAll() {
-    return await this.prisma.contactSubmission.findMany({
+  async findAll() {
+    return this.prisma.contactSubmission.findMany({
       orderBy: { created_at: 'desc' },
     });
   }
 
   async remove(id: number) {
-  // Best Practice: Check if it exists before trying to delete
-  return this.prisma.contactSubmission.delete({
-    where: { id },
-  });
-}
-
+    return this.prisma.contactSubmission.delete({
+      where: { id },
+    });
+  }
 }

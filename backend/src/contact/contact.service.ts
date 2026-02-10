@@ -41,4 +41,11 @@ async findAll() {
     });
   }
 
+  async remove(id: number) {
+  // Best Practice: Check if it exists before trying to delete
+  return this.prisma.contactSubmission.delete({
+    where: { id },
+  });
+}
+
 }

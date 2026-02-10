@@ -1,48 +1,51 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config'; // Best practice for environment variables
-import * as nodemailer from 'nodemailer';
+import { CreateContactDto } from './dto/create-contact.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { MailerService } from 'src/common/mailer/mailer.service';
 
 @Injectable()
-export class MailerService {
-  private transporter;
+export class ContactService {
+  constructor (
+    private readonly prisma: PrismaService,
+    private readonly mailerService: MailerService,
+  ) {}
 
-  constructor(private configService: ConfigService) { // Injecting the service
-    this.transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        // Accessing variables safely from Render/local environment
-        user: this.configService.get<string>('EMAIL_USER'),
-        pass: this.configService.get<string>('EMAIL_PASS'),
-      },
-      logger: true, // Keep true to see detailed SMTP logs in Render
-      debug: true,  // Keep true to see detailed SMTP logs in Render
-      tls: {
-        rejectUnauthorized: false 
-      }
+ async create(dto: CreateContactDto) {
+
+  try {
+      // 1. Save to database first and STORE it in 'submission'
+      const submission = await this.prisma.contactSubmission.create({
+        data: dto,
+      });
+  
+// 2. Start sending the email but DON'T 'await' it.
+    // This allows the function to finish instantly while the email sends in the background.
+    this.mailerService.sendContactNotification(
+      dto.name,
+      dto.email,
+      dto.message,
+    ).catch(err => console.error('Background Email Error:', err));
+
+    // 3. Return the result immediately so the user sees "Success" right away
+    return submission;
+
+  } catch (error) {
+    console.error('Error creating contact:', error);
+    throw error;
+  }
+}
+
+async findAll() {
+    return await this.prisma.contactSubmission.findMany({
+      orderBy: { created_at: 'desc' },
     });
-
-    // Safety check using ConfigService
-    if (!this.configService.get('EMAIL_USER') || !this.configService.get('EMAIL_PASS')) {
-      console.warn('⚠️ Mailer Warning: Missing Email Credentials in ConfigService');
-    }
   }
 
-  async sendContactNotification(name: string, email: string, message: string) {
-    const mailOptions = {
-      // Using configService to fetch the sender email
-      from: `"Portfolio Bot" <${this.configService.get('EMAIL_USER')}>`,
-      to: 'becauselenar@gmail.com', 
-      subject: `🚀 New Contact from ${name}`,
-      html: `
-        <h3>New Portfolio Message</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong> ${message}</p>
-      `,
-    };
+  async remove(id: number) {
+  // Best Practice: Check if it exists before trying to delete
+  return this.prisma.contactSubmission.delete({
+    where: { id },
+  });
+}
 
-    return this.transporter.sendMail(mailOptions);
-  }
 }

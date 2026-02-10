@@ -15,7 +15,11 @@ export class MailerService {
         user: this.configService.get('EMAIL_USER'),
         pass: this.configService.get('EMAIL_PASS'),
       },
+      
     });
+    console.log('SMTP HOST:', this.configService.get('EMAIL_HOST'));
+    console.log('SMTP PORT:', this.configService.get('EMAIL_PORT'));
+    console.log('SMTP USER:', this.configService.get('EMAIL_USER'));
 
     this.transporter.verify((error) => {
       if (error) {

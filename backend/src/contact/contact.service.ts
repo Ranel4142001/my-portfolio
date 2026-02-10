@@ -6,33 +6,27 @@ import { MailerService } from 'src/common/mailer/mailer.service';
 @Injectable()
 export class ContactService {
   constructor(
-    private readonly prisma: PrismaService,
-    private readonly mailerService: MailerService,
+    private prisma: PrismaService,
+    private mailerService: MailerService,
   ) {}
 
   async create(dto: CreateContactDto) {
     try {
-      // 1️⃣ Save to database
+      // Save to database
       const submission = await this.prisma.contactSubmission.create({
         data: dto,
       });
 
-      // 2️⃣ Send email — properly awaited
-      try {
-        const info = await this.mailerService.sendContactNotification(
-          dto.name,
-          dto.email,
-          dto.message,
-        );
-        console.log('✅ Email successfully sent to admin');
-      } catch (emailError) {
-        console.error('❌ Failed to send contact email:', emailError);
-      }
+      // Send email in background
+      this.mailerService.sendContactNotification(
+        dto.name,
+        dto.email,
+        dto.message,
+      ).catch(err => console.error('Background Email Error:', err));
 
-      // 3️⃣ Return database result immediately
       return submission;
     } catch (error) {
-      console.error('❌ Error creating contact submission:', error);
+      console.error('Error creating contact:', error);
       throw error;
     }
   }
@@ -44,8 +38,6 @@ export class ContactService {
   }
 
   async remove(id: number) {
-    return this.prisma.contactSubmission.delete({
-      where: { id },
-    });
+    return this.prisma.contactSubmission.delete({ where: { id } });
   }
 }

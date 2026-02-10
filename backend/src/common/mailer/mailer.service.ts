@@ -9,8 +9,8 @@ export class MailerService {
   constructor(private configService: ConfigService) { // 👈 Inject ConfigService
     this.transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      port: 587,         // 👈 Use 587 instead of 465
+      secure: false,
       auth: {
         // 👈 Best Practice #2: Use configService.get() for reliability on Render
         user: this.configService.get<string>('EMAIL_USER'),

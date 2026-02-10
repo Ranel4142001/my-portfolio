@@ -8,22 +8,23 @@ export class MailerService {
   constructor() {
     this.transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 465,
+      port: 587,
       secure: true, // Use SSL/TLS for port 465
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-      // BEST PRACTICE: Shorten timeouts so it doesn't hang your app
-      connectionTimeout: 5000, 
-      greetingTimeout: 5000,
+      tls: {
+        // This helps bypass some network restrictions on cloud servers
+        rejectUnauthorized: false 
+      }
     });
   }
 
   async sendContactNotification(name: string, email: string, message: string) {
     const mailOptions = {
       from: `"Portfolio Bot" <${process.env.EMAIL_USER}>`,
-      to: 'your-personal-email@gmail.com', // 👈 MAKE SURE THIS IS YOUR ACTUAL EMAIL
+      to: 'becauselenar@gmail.com', // 👈 MAKE SURE THIS IS YOUR ACTUAL EMAIL
       subject: `🚀 New Contact from ${name}`,
       html: `
         <h3>New Portfolio Message</h3>

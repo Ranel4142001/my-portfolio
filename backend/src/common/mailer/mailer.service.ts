@@ -14,10 +14,11 @@ export class MailerService {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-     tls: {
-        // Essential for cloud environments like Render to avoid handshake blocks
-        rejectUnauthorized: false 
-      }
+     logger: true,
+    debug: true, 
+    tls: {
+      rejectUnauthorized: false 
+    }
     });
   }
 

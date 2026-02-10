@@ -6,33 +6,30 @@ import * as nodemailer from 'nodemailer';
 export class MailerService {
   private transporter;
 
-  constructor(private configService: ConfigService) { // 👈 Inject ConfigService
+  constructor(private configService: ConfigService) {
     this.transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,         // 👈 Use 587 instead of 465
-      secure: false,
+      host: this.configService.get('EMAIL_HOST'),
+      port: this.configService.get<number>('EMAIL_PORT'),
+      secure: this.configService.get('EMAIL_SECURE') === 'true',
       auth: {
-        // 👈 Best Practice #2: Use configService.get() for reliability on Render
-        user: this.configService.get<string>('EMAIL_USER'),
-        pass: this.configService.get<string>('EMAIL_PASS'),
+        user: this.configService.get('EMAIL_USER'),
+        pass: this.configService.get('EMAIL_PASS'),
       },
-      logger: true,
-      debug: true,
-      tls: {
-        rejectUnauthorized: false 
-      }
     });
 
-    // Helpful check for your Render logs
-    if (!this.configService.get('EMAIL_USER')) {
-      console.error('❌ MAILER ERROR: EMAIL_USER is missing from environment!');
-    }
+    this.transporter.verify((error) => {
+      if (error) {
+        console.error('❌ SMTP VERIFY FAILED:', error);
+      } else {
+        console.log('✅ SMTP server is ready to send emails');
+      }
+    });
   }
 
   async sendContactNotification(name: string, email: string, message: string) {
-    const mailOptions = {
-      from: '"Portfolio Bot" <becauselenar@gmail.com>', 
-      to: 'becauselenar@gmail.com', 
+    return await this.transporter.sendMail({
+      from: `"Portfolio Bot" <${this.configService.get('EMAIL_FROM')}>`,
+      to: this.configService.get('EMAIL_USER'),
       subject: `🚀 New Contact from ${name}`,
       html: `
         <h3>New Portfolio Message</h3>
@@ -40,15 +37,6 @@ export class MailerService {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Message:</strong> ${message}</p>
       `,
-    };
-
-    try {
-      const info = await this.transporter.sendMail(mailOptions);
-      console.log('✅ Email sent successfully:', info.messageId);
-      return info;
-    } catch (error) {
-      console.error('❌ Nodemailer Error details:', error);
-      throw error;
-    }
+    });
   }
 }

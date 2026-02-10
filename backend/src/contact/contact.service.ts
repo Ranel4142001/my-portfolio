@@ -18,9 +18,8 @@ export class ContactService {
         data: dto,
       });
   
-// 2. Start sending the email but DON'T 'await' it.
-    // This allows the function to finish instantly while the email sends in the background.
-   await this.mailerService.sendContactNotification(
+
+    this.mailerService.sendContactNotification(
       dto.name,
       dto.email,
       dto.message,

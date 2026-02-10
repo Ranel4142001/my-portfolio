@@ -1,6 +1,6 @@
-import HeroBackground from "./HeroBackground";
-import HeroContent from "./HeroContent";
-import HeroActions from "./HeroActions";
+import HeroBackground from "./components/HeroBackground";
+import HeroContent from "./components/HeroContent";
+import HeroActions from "./components/HeroActions";
 
 const Hero = () => {
   const scrollToProjects = () => {

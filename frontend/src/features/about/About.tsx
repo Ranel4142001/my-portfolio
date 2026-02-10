@@ -1,5 +1,5 @@
-import AboutContent from './AboutContent';
-import AboutHighlights from './AboutHighlights';
+import AboutContent from './components/AboutContent';
+import AboutHighlights from './components/AboutHighlights';
 
 const About = () => {
   return (

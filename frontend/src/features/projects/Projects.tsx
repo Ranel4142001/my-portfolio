@@ -1,6 +1,6 @@
-import ProjectsHeader from './ProjectsHeader';
-import FeaturedProjects from './FeaturedProjects';
-import OtherProjects from './OtherProjects';
+import ProjectsHeader from './components/ProjectsHeader';
+import FeaturedProjects from './components/FeaturedProjects';
+import OtherProjects from './components/OtherProjects';
 
 const Projects = () => {
   return (

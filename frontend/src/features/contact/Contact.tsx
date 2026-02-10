@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { scrollFade } from './contact.animations';
-import { useContactForm } from './useContactForm';
-import { ContactForm } from './ContactForm';
-import { ContactInfo } from './ContactInfo';
+import { useContactForm } from './hooks/useContactForm';
+import { ContactForm } from './components/ContactForm';
+import { ContactInfo } from './components/ContactInfo';
 
 const Contact = () => {
   const form = useContactForm();

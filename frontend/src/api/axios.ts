@@ -1,6 +1,6 @@
 // src/api/axios.ts
 import axios from "axios";
-import { toast } from "@/shared/hooks/use-toast"; // Import the toast hook used in your project
+import { toast } from "@/hooks/use-toast"; // Import the toast hook used in your project
 
 const api = axios.create({
   baseURL: import.meta.env.PROD 

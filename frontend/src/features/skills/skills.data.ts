@@ -1,6 +1,10 @@
 // features/skills/skills.data.ts
 
-import { Skill } from './skills.types';
+export interface Skill {
+  name: string;
+  level: number; // Proficiency level (0-100)
+  category: string; // e.g., "Languages", "Frameworks", "Databases", "DevOps"
+}
 
 export const skills: Skill[] = [
   // Languages

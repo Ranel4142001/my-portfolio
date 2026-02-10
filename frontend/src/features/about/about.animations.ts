@@ -1,4 +1,4 @@
-import { viewportSettings } from "@/shared/lib/animations";
+import { viewportSettings } from "@/lib/animations";
 
 export const aboutTextMotion = {
   initial: { opacity: 0, y: 30 },

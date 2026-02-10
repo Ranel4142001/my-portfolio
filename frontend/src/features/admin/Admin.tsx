@@ -17,7 +17,7 @@ const Admin = () => {
     const success = await fetchMessages(secret);
     
     if (success) {
-      setStatusMessage('Successfully authenticated! Welcome, Ranel.');
+      setStatusMessage('Log in successful! Loading dashboard...');
       
       // Delay hiding the input so the user can see the success message
       setTimeout(() => {
@@ -28,61 +28,62 @@ const Admin = () => {
   };
  
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white p-8">
-      <div className="max-w-5xl mx-auto space-y-8">
-        <AdminHeader />
-        
-       {/* 1. Success Message Toast */}
-        {statusMessage && (
-          <div className="bg-emerald-500/20 border border-emerald-500 text-emerald-400 p-4 rounded-lg animate-pulse">
-            ✅ {statusMessage}
+    <div className="min-h-screen bg-[#0f172a] text-white">
+      {/* 🔒 Auth Screen: Only shows before login */}
+      {!isLoggedIn ? (
+        <div className="flex flex-col items-center justify-center min-h-screen p-8 animate-in fade-in zoom-in duration-300">
+          <div className="w-full max-w-md space-y-6">
+            <AdminHeader /> {/* Keep header here if you want your name visible during login */}
+            
+            {statusMessage && (
+              <div className="bg-emerald-500/20 border border-emerald-500 text-emerald-400 p-4 rounded-lg animate-pulse text-center">
+                ✅ {statusMessage}
+              </div>
+            )}
+
+            <AdminAuth 
+              secret={secret}
+              setSecret={setSecret}
+              onFetch={handleAuthSuccess} 
+              loading={loading}
+            />
+
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-lg text-center">
+                ⚠️ {error}
+              </div>
+            )}
           </div>
-        )}
-
-        {/* 2. Login Section - Disappears when isLoggedIn is true */}
-        {!isLoggedIn && (
-          <AdminAuth 
-            secret={secret}
-            setSecret={setSecret}
-            onFetch={handleAuthSuccess} // Use our new wrapper function
-            loading={loading}
-          />
-        )}
-
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-lg">
-            ⚠️ {error}
+        </div>
+      ) : (
+        /* 📊 Dashboard Screen: Only shows AFTER login */
+        <div className="max-w-5xl mx-auto p-8 space-y-8 animate-in slide-in-from-bottom-4 duration-500">
+          <AdminHeader />
+          
+          <div className="flex gap-4 border-b border-slate-700 pb-2">
+            <button 
+              onClick={() => setActiveTab('messages')}
+              className={`pb-2 px-4 transition-all ${activeTab === 'messages' ? 'border-b-2 border-cyan-400 text-cyan-400' : 'text-slate-400'}`}
+            >
+              Contact Inquiries ({messages.length})
+            </button>
+            <button 
+              onClick={() => setActiveTab('analytics')}
+              className={`pb-2 px-4 transition-all ${activeTab === 'analytics' ? 'border-b-2 border-cyan-400 text-cyan-400' : 'text-slate-400'}`}
+            >
+              Audience Analytics
+            </button>
           </div>
-        )}
 
-        {/* 3. Dashboard Content - Only shows after login */}
-        {isLoggedIn && (
-          <>
-            <div className="flex gap-4 border-b border-slate-700 pb-2">
-              <button 
-                onClick={() => setActiveTab('messages')}
-                className={`pb-2 px-4 transition-all ${activeTab === 'messages' ? 'border-b-2 border-cyan-400 text-cyan-400' : 'text-slate-400'}`}
-              >
-                Contact Inquiries ({messages.length})
-              </button>
-              <button 
-                onClick={() => setActiveTab('analytics')}
-                className={`pb-2 px-4 transition-all ${activeTab === 'analytics' ? 'border-b-2 border-cyan-400 text-cyan-400' : 'text-slate-400'}`}
-              >
-                Audience Analytics
-              </button>
-            </div>
-
-            <div className="mt-6">
-              {activeTab === 'messages' ? (
-                <MessageList messages={messages} error={error} />
-              ) : (
-                <VisitorList stats={stats} />
-              )}
-            </div>
-          </>
-        )}
-      </div>
+          <div className="mt-6">
+            {activeTab === 'messages' ? (
+              <MessageList messages={messages} error={error} />
+            ) : (
+              <VisitorList stats={stats} />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

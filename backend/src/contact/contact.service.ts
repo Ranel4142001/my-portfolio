@@ -18,25 +18,22 @@ export class ContactService {
         data: dto,
       });
   
- try {
-        await this.mailerService.sendContactNotification( // Use mailerService here
-          dto.name,
-          dto.email,
-          dto.message,
-        );
-      } catch (mailError) {
-        // Log mail error but don't crash the whole request
-        console.error('Email notification failed to send:', mailError);
-      }
+// 2. Start sending the email but DON'T 'await' it.
+    // This allows the function to finish instantly while the email sends in the background.
+    this.mailerService.sendContactNotification(
+      dto.name,
+      dto.email,
+      dto.message,
+    ).catch(err => console.error('Background Email Error:', err));
 
-      // 3. Return the saved submission back to the controller
-      return submission; 
+    // 3. Return the result immediately so the user sees "Success" right away
+    return submission;
 
-    } catch (error) {
-      console.error('Error creating contact:', error);
-      throw error;
-    }
+  } catch (error) {
+    console.error('Error creating contact:', error);
+    throw error;
   }
+}
 
 async findAll() {
     return await this.prisma.contactSubmission.findMany({

@@ -14,12 +14,16 @@ export class MailerService {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-     logger: true,
-    debug: true, 
+     logger: false,
+    debug: false, 
     tls: {
       rejectUnauthorized: false 
     }
+    
     });
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.warn('⚠️ Mailer Warning: Missing Email Credentials in Environment Variables');
+}
   }
 
   async sendContactNotification(name: string, email: string, message: string) {

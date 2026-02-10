@@ -9,13 +9,13 @@ export class MailerService {
     this.transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
-      secure: true, // Use SSL/TLS for port 465
+      secure: false, // Use SSL/TLS for port 465
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-      tls: {
-        // This helps bypass some network restrictions on cloud servers
+     tls: {
+        // Essential for cloud environments like Render to avoid handshake blocks
         rejectUnauthorized: false 
       }
     });

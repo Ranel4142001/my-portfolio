@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import { useEffect } from "react";
+import Admin from '../features/admin/Admin';
 import { PortfolioService } from "../api/services/tracker.service";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,9 @@ const App = () => (
       <PageViewTracker />
         <Routes>
           <Route path="/" element={<Index />} />
+
+          <Route path="/admin" element={<Admin />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -44,5 +48,7 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
+
+
 
 export default App;

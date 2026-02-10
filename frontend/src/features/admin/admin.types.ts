@@ -3,5 +3,7 @@ export interface ContactMessage {
   name: string;
   email: string;
   message: string;
-  created_at: string;
+  created_at: string; 
+  preferredDate?: string;
+  read?: boolean; 
 }

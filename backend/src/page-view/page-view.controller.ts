@@ -2,16 +2,16 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { PageViewService } from './page-view.service';
 import { CreatePageViewDto } from './dto/create-page-view.dto';
 
-@Controller('page-view')
+@Controller('tracker')
 export class PageViewController {
   constructor(private readonly pageViewService: PageViewService) {}
 
-  @Post()
+  @Post('visit')
   create(@Body() createPageViewDto: CreatePageViewDto) {
     return this.pageViewService.create(createPageViewDto);
   }
 
-  @Get()
+  @Get('stats')
   findAll() {
     return this.pageViewService.findAll();
   }

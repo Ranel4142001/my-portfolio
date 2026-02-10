@@ -9,7 +9,7 @@ export const useAdminMessages = () => {
   const [error, setError] = useState('');
 
     
-   const fetchMessages = async (secret: string) => {
+   const fetchMessages = async (secret: string): Promise<boolean> => {
     setLoading(true);
     setError('');
     
@@ -21,8 +21,10 @@ export const useAdminMessages = () => {
       ]);
       setMessages(msgs);
       setStats(visitorData);
+      return true;
     } catch (err: any) {
       setError(err.message);
+      return false;
     } finally {
       setLoading(false);
     }

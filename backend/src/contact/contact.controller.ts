@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body} from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards} from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
+import { AdminGuard } from 'src/auth/admin.guard';
 
 @Controller('contact')
 export class ContactController {
@@ -11,7 +12,8 @@ export class ContactController {
     return this.contactService.create(dto);
   }
 
-  @Get()
+  @Get('all')
+  @UseGuards(AdminGuard)
   findAll() {
     return this.contactService.findAll();
   }

@@ -14,8 +14,8 @@ export class MailerService {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-     logger: false,
-    debug: false, 
+     logger: true,
+    debug: true, 
     tls: {
       rejectUnauthorized: false 
     }

@@ -20,3 +20,4 @@ export const ProjectsHeader = () => (
     </p>
   </motion.div>
 );
+export default ProjectsHeader;

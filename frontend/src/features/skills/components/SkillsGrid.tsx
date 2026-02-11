@@ -42,3 +42,4 @@ export const SkillsGrid = ({ filteredSkills }: Props) => (
     </AnimatePresence>
   </div>
 );
+export default SkillsGrid;

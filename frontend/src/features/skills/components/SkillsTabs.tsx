@@ -25,3 +25,4 @@ export const SkillsTabs = ({ activeCategory, setActiveCategory }: Props) => (
     ))}
   </motion.div>
 );
+export default SkillsTabs;

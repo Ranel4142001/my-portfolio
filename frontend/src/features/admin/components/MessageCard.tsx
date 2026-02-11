@@ -16,3 +16,4 @@ export const MessageCard = ({ message }: { message: ContactMessage }) => (
     </div>
   </div>
 );
+export default MessageCard;

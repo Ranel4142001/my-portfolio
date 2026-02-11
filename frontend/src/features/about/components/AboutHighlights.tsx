@@ -32,4 +32,4 @@ const AboutHighlights = () => {
   )
 }
 
-export default AboutHighlights
+export default AboutHighlights;

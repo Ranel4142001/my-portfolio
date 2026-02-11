@@ -15,3 +15,4 @@ export const SkillsHeader = () => (
     </p>
   </motion.div>
 );
+export default SkillsHeader;

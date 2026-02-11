@@ -1,18 +1,16 @@
 // features/admin/components/AdminSection.tsx
 import { useState } from 'react';
 import { useAdminMessages } from '../hooks/useAdminMessages';
-import { LoginView } from './LoginView';
-import { DashboardView } from './DashboardView';
-import { MessageList } from './MessageList';
-import { VisitorList } from './VisitorList';
+import  LoginView  from './LoginView';
+import  Dashboard  from './Dashboard';
 
 const AdminSection = () => {
   const [secret, setSecret] = useState('');
-  const [activeTab, setActiveTab] = useState<'messages' | 'analytics'>('messages');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
 
-  const { messages, stats, loading, error, fetchMessages } = useAdminMessages();
+  const { messages, stats, loading, error, fetchMessages } =
+    useAdminMessages();
 
   const handleLogin = async () => {
     if (!secret) return;
@@ -40,11 +38,9 @@ const AdminSection = () => {
           error={error}
         />
       ) : (
-        <DashboardView
+        <Dashboard
           messages={messages}
           stats={stats}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
           error={error}
         />
       )}

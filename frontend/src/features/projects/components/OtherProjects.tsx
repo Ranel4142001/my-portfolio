@@ -54,3 +54,4 @@ export const OtherProjects = () => (
     </div>
   </motion.div>
 );
+export default OtherProjects;

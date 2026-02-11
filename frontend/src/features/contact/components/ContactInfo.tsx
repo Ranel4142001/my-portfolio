@@ -34,3 +34,4 @@ const Social = ({ href, Icon }: any) => (
     <Icon className="w-5 h-5" />
   </a>
 );
+export default ContactInfo;

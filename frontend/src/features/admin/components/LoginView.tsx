@@ -53,3 +53,5 @@ const StatusMessage = ({ text, type }: { text: string; type: 'success' | 'error'
     {type === 'success' ? '✅ ' : '⚠️ '}{text}
   </div>
 );
+
+export default LoginView;

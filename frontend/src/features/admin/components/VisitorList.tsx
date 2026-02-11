@@ -54,3 +54,5 @@ export const VisitorList = ({ stats }: { stats: VisitorStats[] }) => {
     </div>
   );
 };
+
+export default VisitorList;

@@ -78,3 +78,4 @@ const InputField = ({ label, id, ...props }: any) => (
     <Input id={id} name={id} required {...props} />
   </div>
 );
+export default ContactForm;

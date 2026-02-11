@@ -54,3 +54,4 @@ export const FeaturedProjects = () => (
     ))}
   </div>
 );
+export default FeaturedProjects;

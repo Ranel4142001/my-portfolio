@@ -22,3 +22,4 @@ export const MessageList = ({ messages, error }: MessageListProps) => {
   );
 };
 
+export default MessageList;

@@ -18,3 +18,4 @@ export const SkillsExtraTags = () => (
     </div>
   </motion.div>
 );
+export default SkillsExtraTags;

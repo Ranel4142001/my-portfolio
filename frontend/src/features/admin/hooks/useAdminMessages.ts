@@ -1,6 +1,7 @@
+// features/admin/hooks/useAdminMessages.ts
 import { useState } from 'react';
-import { ContactMessage } from '../admin.types';
-import { adminService } from '../../../api/services/admin.service';
+import { ContactMessage } from '../types/admin.types';
+import { adminService } from '../services/admin.service';
 
 export const useAdminMessages = () => {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
@@ -8,17 +9,16 @@ export const useAdminMessages = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-    
-   const fetchMessages = async (secret: string): Promise<boolean> => {
+  const fetchMessages = async (secret: string): Promise<boolean> => {
     setLoading(true);
     setError('');
-    
+
     try {
-      // Using the centralized service
       const [msgs, visitorData] = await Promise.all([
         adminService.getAllMessages(secret),
         adminService.getVisitorStats(secret)
       ]);
+
       setMessages(msgs);
       setStats(visitorData);
       return true;
@@ -30,5 +30,5 @@ export const useAdminMessages = () => {
     }
   };
 
-     return { messages,stats, loading, error, fetchMessages };
-}
+  return { messages, stats, loading, error, fetchMessages };
+};

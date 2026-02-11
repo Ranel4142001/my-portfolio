@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
-import { ContactRequest, ContactService } from "@/api/services/contact.service";
+import { ContactService } from "../services/contact.api";
+import { ContactRequest } from "../types/contact.types";
 
 export const useContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,12 +32,11 @@ export const useContactForm = () => {
       form.reset();
       setDate(undefined);
     } catch (error: any) {
-      // Best Practice: Handle specific API errors
       toast({
         variant: "destructive",
         title: "Failed to send",
         description:
-          error.response?.data?.message || "Could not reach the database.",
+          error.message || "Could not reach the database.",
       });
     } finally {
       setIsSubmitting(false);

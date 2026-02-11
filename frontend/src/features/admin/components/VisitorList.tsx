@@ -6,7 +6,7 @@ interface VisitorStats {
   last_visited?: string; // Optional in case it's missing from the query
 }
 
-const VisitorList = ({ stats }: { stats: VisitorStats[] }) => {
+export const VisitorList = ({ stats }: { stats: VisitorStats[] }) => {
   // 🛡️ BEST PRACTICE: Check if stats is a valid array before rendering.
   // This prevents the "Cannot read properties of undefined" error.
   if (!stats || !Array.isArray(stats) || stats.length === 0) {
@@ -54,5 +54,3 @@ const VisitorList = ({ stats }: { stats: VisitorStats[] }) => {
     </div>
   );
 };
-
-export default VisitorList;

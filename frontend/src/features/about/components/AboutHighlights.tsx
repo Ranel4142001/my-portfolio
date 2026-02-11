@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { aboutHighlights } from '@/data/aboutData';
-import { cardVariants, viewportSettings } from '@/lib/animations';
+import { motion } from 'framer-motion'
+import { aboutHighlights } from '../data/about.data'
+import { cardVariants, viewportSettings } from '../animations/about.animations'
 
 const AboutHighlights = () => {
   return (
@@ -13,21 +13,23 @@ const AboutHighlights = () => {
           initial="hidden"
           whileInView="visible"
           viewport={viewportSettings}
-          className="group p-6 rounded-xl bg-card border border-border transform-gpu will-change-transform card-glow"
+          className="group p-6 rounded-xl bg-card border border-border card-glow"
         >
-          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
             <item.icon className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">
+
+          <h3 className="text-lg font-semibold mb-2">
             {item.title}
           </h3>
+
           <p className="text-sm text-muted-foreground">
             {item.description}
           </p>
         </motion.div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default AboutHighlights;
+export default AboutHighlights

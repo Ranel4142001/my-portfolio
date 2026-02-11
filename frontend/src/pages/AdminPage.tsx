@@ -1,10 +1,10 @@
 import Navigation from '@/layouts/Navigation';
 import Footer from '@/layouts/Footer';
-import Hero from '@/features/hero/Hero';
-import About from '@/features/about/About';
-import Skills from '@/features/skills/Skills';
-import Projects from '@/features/projects/Projects';
-import Contact from '@/features/contact/Contact';
+import Hero from '@/features/home/components/HeroSection';
+import About from '@/features/about/components/AboutSection';
+import Skills from '@/features/skills/components/SkillsSection';
+import Projects from '@/features/projects/components/ProjectsSection';
+import Contact from '@/features/contact/components/ContactSection';
 
 const HomePage = () => {
   return (

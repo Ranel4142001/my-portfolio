@@ -11,7 +11,7 @@ export const SkillsHeader = () => (
       Technical <span className="text-gradient">Expertise</span>
     </h2>
     <p className="text-muted-foreground max-w-2xl mx-auto">
-      My toolkit includes PHP (Laravel), Node.js (NestJS), TypeScript, MySQL, Prisma ORM, and other backend technologies for building secure, reliable, and maintainable systems.
+       My main backend stack for building secure, reliable, and maintainable systems.
     </p>
   </motion.div>
 );

@@ -15,12 +15,13 @@ export const FeaturedProjects = () => (
         variants={cardVariants}
         className="group relative p-8 rounded-2xl bg-card border border-border transform-gpu will-change-transform card-glow"
       >
-        <div className="flex flex-col lg:flex-row lg:items-start gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-stretch gap-6"> {/* 🛠️ Changed items-start to items-stretch */}
           <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
             <Folder className="w-7 h-7 text-primary" />
           </div>
 
-          <div className="flex-1">
+          {/* 🛠️ CONTENT WRAPPER: Added flex and flex-col to push tech to bottom */}
+          <div className="flex-1 flex flex-col">
             <div className="flex items-start justify-between gap-4 mb-4">
               <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                 {project.title}
@@ -39,9 +40,12 @@ export const FeaturedProjects = () => (
               </div>
             </div>
 
-            <p className="text-muted-foreground mb-4">{project.description}</p>
+            {/* 🛠️ DESCRIPTION: Added flex-1 to occupy all available space */}
+            <p className="text-muted-foreground mb-6 flex-1">
+              {project.description}
+            </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-border/50">
               {project.technologies.map((tech) => (
                 <span key={tech} className="px-3 py-1 rounded-full bg-secondary text-xs font-mono text-primary">
                   {tech}
@@ -54,4 +58,5 @@ export const FeaturedProjects = () => (
     ))}
   </div>
 );
+
 export default FeaturedProjects;

@@ -23,28 +23,38 @@ export const OtherProjects = () => (
           whileInView="visible"
           viewport={viewportSettings}
           variants={cardVariants}
-          className="group p-6 rounded-xl bg-card border border-border transform-gpu will-change-transform card-glow"
+          // 🛠️ Ensure flex-col and h-full are here to allow vertical stretching
+          className="group p-6 rounded-2xl bg-card border border-border transform-gpu will-change-transform card-glow flex flex-col h-full"
         >
-          <div className="flex items-center justify-between mb-4">
-            <Folder className="w-10 h-10 text-primary" />
-            {project.github && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                <Github className="w-5 h-5" />
-              </a>
-            )}
+          {/* 🛠️ Top Content Wrapper: Using flex-1 here pushes the tech tags to the bottom */}
+          <div className="flex-1">
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <Folder className="w-10 h-10 text-primary" />
+              {project.github && (
+                <a 
+                  href={project.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+              )}
+            </div>
+
+            <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+              {project.title}
+            </h4>
+
+            <p className="text-sm text-muted-foreground mb-6 line-clamp-3">
+              {project.description}
+            </p>
           </div>
 
-          <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-            {project.title}
-          </h4>
-
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-            {project.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2">
+          {/* 🛠️ Bottom Content: This will now always sit at the bottom edge */}
+          <div className="flex flex-wrap gap-x-4 gap-y-2 pt-4 border-t border-border/50">
             {project.technologies.slice(0, 3).map((tech) => (
-              <span key={tech} className="text-xs font-mono text-muted-foreground">
+              <span key={tech} className="text-xs font-mono text-muted-foreground/80">
                 {tech}
               </span>
             ))}
@@ -54,4 +64,5 @@ export const OtherProjects = () => (
     </div>
   </motion.div>
 );
+
 export default OtherProjects;

@@ -2,19 +2,31 @@ import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
+
 @Injectable()
-export class PrismaService
-  extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy
-{
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
-    const adapter = new PrismaMariaDb({
-      host: process.env.DB_HOST || 'localhost',
-      user: process.env.DB_USER || 'root',
-      password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'my_portfolio',
-      port: parseInt(process.env.DB_PORT || '3307'),
-      connectionLimit: 5,
+    const dbUrl = process.env.DATABASE_URL;
+
+    if (!dbUrl) {
+      throw new Error('DATABASE_URL is not defined in environment variables');
+    }
+
+    const url = new URL(dbUrl);
+
+   const adapter = new PrismaMariaDb({
+      host: url.hostname,
+      user: url.username,
+      password: decodeURIComponent(url.password), // Handles special characters in password
+      database: url.pathname.slice(1),
+      port: parseInt(url.port) || 3306,
+      connectionLimit: 2,
+      // Aiven FREE tier requires these specific SSL settings to connect from Render
+      ssl: {
+        rejectUnauthorized: false,
+      },
+      // Increase connectTimeout to prevent the 'failed to create socket' error
+      connectTimeout: 10000, 
     });
 
     super({

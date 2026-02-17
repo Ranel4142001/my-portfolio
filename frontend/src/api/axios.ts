@@ -1,9 +1,11 @@
 // src/api/axios.ts
 import axios from "axios";
-import { toast } from "@/shared/hooks/use-toast"; // Import the toast hook used in your project
+import { toast } from "@/hooks/use-toast"; // Import the toast hook used in your project
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api", // Matches your NestJS prefix
+  baseURL: import.meta.env.PROD 
+    ? "https://rld-portfolio-backend.onrender.com/api" 
+    : "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -19,7 +21,7 @@ api.interceptors.response.use(
     // This triggers for any API error (400, 404, 500, or Network Error)
     const message =
       error.response?.data?.message ||
-      "Server connection failed. Please check if NestJS and XAMPP are running.";
+      "Unable to connect to the server. Please try again later.";
 
     // Automatically show the toast error [cite: 2026-01-20]
     toast({

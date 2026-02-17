@@ -1,4 +1,4 @@
-import api from '../axios'; // Using your existing axios instance
+import api from '../axios';
 
 export interface ContactRequest {
   name: string;

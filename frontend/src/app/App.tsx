@@ -1,11 +1,12 @@
-import { Toaster } from "@/shared/components/ui/toaster";
-import { Toaster as Sonner } from "@/shared/components/ui/sonner";
-import { TooltipProvider } from "@/shared/components/ui/tooltip";
+import { Toaster } from "@/components/toaster";
+import { Toaster as Sonner } from "@/components/sonner";
+import { TooltipProvider } from "@/components/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Index from "../pages/Index";
+import Index from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import { useEffect } from "react";
+import Admin from './../pages/AdminPage';
 import { PortfolioService } from "../api/services/tracker.service";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,9 @@ const App = () => (
       <PageViewTracker />
         <Routes>
           <Route path="/" element={<Index />} />
+
+          <Route path="/admin" element={<Admin />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -44,5 +48,7 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
+
+
 
 export default App;

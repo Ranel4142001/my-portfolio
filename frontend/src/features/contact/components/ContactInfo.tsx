@@ -8,7 +8,7 @@ export const ContactInfo = () => (
     </p>
 
     <div className="space-y-4 mb-8">
-      <InfoItem icon={Mail} label="Email" value="ranel.dahil@example.com" />
+      <InfoItem icon={Mail} label="Email" value="ranellaurentedahil1401@gmail.com" />
       <InfoItem icon={MapPin} label="Location" value="Philippines" />
     </div>
 

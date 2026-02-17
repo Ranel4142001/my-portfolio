@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import { useEffect } from "react";
-import Admin from '../features/admin/Admin';
+import Admin from './../pages/AdminPage';
 import { PortfolioService } from "../api/services/tracker.service";
 
 const queryClient = new QueryClient();
